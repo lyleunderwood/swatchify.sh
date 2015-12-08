@@ -34,6 +34,8 @@
 # generate a swatch and it has like six color lines then you should crank up
 # the minpixels. Swatches definitely work best with no more than three color
 # lines. The default is 100000.
+#
+# Depends on imagemagick, specifically uses convert -segment
 
 if [[ -z $1 ]]
 then

@@ -1,4 +1,5 @@
 swatchify.sh infile outfile [width] [height] [minpixels]
+---
 
 swatchify takes an image file and generates a swatch for it based on the
 major colors. It accomplishes this using imagemagick's built in 
@@ -32,6 +33,12 @@ cluster. Basically higher value == fewer major colors picked out. If you
 generate a swatch and it has like six color lines then you should crank up
 the minpixels. Swatches definitely work best with no more than three color
 lines. The default is 100000.
+
+Dependencies
+---
+imagemagick. Specifically uses `convert -segment`. I haven't looked into which
+versions of imagemagick support this functionality, but I assume it's been in
+there for a while.
 
 How does this work?
 ---
