@@ -36,7 +36,7 @@
 # swatch.
 # 
 # [clusteropts] This is an options string which gets passed straight into
-# [convert -segments](http://www.imagemagick.org/script/command-line-options.php#segment).
+# [convert -segment](http://www.imagemagick.org/script/command-line-options.php#segment).
 # The default is "100000x2.5" which basically means that a color cluster 
 # requires 100000 pixels. 2.5 is the "smoothing threshold," which is kinda
 # complicated and ambiguous. Basically these determine how many color groups

@@ -21,21 +21,21 @@ this is essentially to look at the number of clusters and decide if you want
 to increase the minpixels and make another pass. If it's more than three you
 pretty much always want to increase it.
 
-infile should be an image, preferably a transparent PNG. swatchify will
+**infile** should be an image, preferably a transparent PNG. swatchify will
 drop any pixels which have a value in the alpha channel greater than 200.
 
-outfile should be a path to an output image. swatchify should support
+**outfile** should be a path to an output image. swatchify should support
 output in any format supported by imagemagick, gif is recommended.
 
-[width] is the output image width in pixels. It's optional. The default is 
+**[width]** is the output image width in pixels. It's optional. The default is 
 100.
 
-[height] is the output image height in pixels. It's optional. If not 
+**[height]** is the output image height in pixels. It's optional. If not 
 specified the height always matches the width in order to make a square
 swatch.
 
-[clusteropts] This is an options string which gets passed straight into
-[convert -segments](http://www.imagemagick.org/script/command-line-options.php#segment).
+**[clusteropts]** This is an options string which gets passed straight into
+[convert -segment](http://www.imagemagick.org/script/command-line-options.php#segment).
 The default is "100000x2.5" which basically means that a color cluster 
 requires 100000 pixels. 2.5 is the "smoothing threshold," which is kinda
 complicated and ambiguous. Basically these determine how many color groups
