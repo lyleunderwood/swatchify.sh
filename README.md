@@ -28,11 +28,14 @@ output in any format supported by imagemagick, gif is recommended.
 specified the height always matches the width in order to make a square
 swatch.
 
-[minpixels] is an optional specification of how many pixels should be in a
-cluster. Basically higher value == fewer major colors picked out. If you 
-generate a swatch and it has like six color lines then you should crank up
-the minpixels. Swatches definitely work best with no more than three color
-lines. The default is 100000.
+[clusteropts] This is an options string which gets passed straight into
+[convert -segments](http://www.imagemagick.org/script/command-line-options.php#segment).
+The default is "100000x2.5" which basically means that a color cluster 
+requires 100000 pixels. 2.5 is the "smoothing threshold," which is kinda
+complicated and ambiguous. Basically these determine how many color groups
+there will end up being. The really straightforward one is the number of
+pixels, higher number means fewer groups. The smoothing threshold does things
+also.
 
 Dependencies
 ---

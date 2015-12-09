@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# swatchify infile outfile [width] [height] [minpixels]
+# swatchify infile outfile [width] [height] [clusteropts]
 
 # swatchify takes an image file and generates a swatch for it based on the
 # major colors. It accomplishes this using imagemagick's built in 
@@ -29,11 +29,14 @@
 # specified the height always matches the width in order to make a square
 # swatch.
 # 
-# [minpixels] is an optional specification of how many pixels should be in a
-# cluster. Basically higher value == fewer major colors picked out. If you 
-# generate a swatch and it has like six color lines then you should crank up
-# the minpixels. Swatches definitely work best with no more than three color
-# lines. The default is 100000.
+# [clusteropts] This is an options string which gets passed straight into
+# [convert -segments](http://www.imagemagick.org/script/command-line-options.php#segment).
+# The default is "100000x2.5" which basically means that a color cluster 
+# requires 100000 pixels. 2.5 is the "smoothing threshold," which is kinda
+# complicated and ambiguous. Basically these determine how many color groups
+# there will end up being. The really straightforward one is the number of
+# pixels, higher number means fewer groups. The smoothing threshold does things
+# also.
 #
 # Depends on imagemagick, specifically uses convert -segment
 
@@ -49,7 +52,7 @@ then
   exit 1
 fi
 
-MIN_PIXELS=100000
+MIN_PIXELS=100000x2.5
 SWATCH_WIDTH=100.0
 SWATCH_HEIGHT=100.0
 
@@ -97,7 +100,7 @@ convert "$1" -define histogram:unique-colors=true -format %c histogram:info:- |
     done |
       convert - -gravity south -background white -append \
               miff:- |
-        convert - -verbose -segment "${MIN_PIXELS}x2.5" NULL: > $REPORT_PATH
+        convert - -verbose -segment "${MIN_PIXELS}" NULL: > $REPORT_PATH
 
 # parse the report for various values
 COUNTS=(`cat $REPORT_PATH |grep 'Cluster #[0-9]* =' |sed 's/Cluster.*= //'`)
@@ -166,4 +169,4 @@ convert "$TMP_SWATCH" -flop miff:- |
   convert +append "$TMP_SWATCH" - "${2}"
 
 # clean up
-mv $PARTS_PATH "${PARTS_PATH}_done"
+rm "$PARTS_PATH" "$REPORT_PATH" "$TMP_SWATCH"
