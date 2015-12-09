@@ -83,8 +83,10 @@ function float_eval()
     return $stat
 }
 
-REPORT_PATH="/tmp/segments_report_$1"
-PARTS_PATH="/tmp/swatch_parts_$1"
+SAFE_NAME=`echo $1 |sed 's/\//_/g'`
+
+REPORT_PATH="/tmp/segments_report_${SAFE_NAME}.txt"
+PARTS_PATH="/tmp/swatch_parts_${SAFE_NAME}.txt"
 
 # all this stuff generates the color segment report
 convert "$1" -define histogram:unique-colors=true -format %c histogram:info:- |
@@ -151,15 +153,17 @@ for i in `seq 0 $(expr ${#PERCENTS[@]} - 1)`; do
 done 
 
 # build the actual swatch
+TMP_SWATCH="/tmp/${SAFE_NAME}.swatch.png"
+
 cat $PARTS_PATH |
   while read r g b percent width; do
     convert -size ${width}x${SWATCH_HEIGHT} xc:"rgb($r,$g,$b)" miff:-
   done |
     convert - -gravity south -background white +append \
-      "${1}.swatch.png"
+      "$TMP_SWATCH"
 
-convert "${1}.swatch.png" -flop miff:- |
-  convert +append "${1}.swatch.png" - "${2}"
+convert "$TMP_SWATCH" -flop miff:- |
+  convert +append "$TMP_SWATCH" - "${2}"
 
 # clean up
 mv $PARTS_PATH "${PARTS_PATH}_done"
