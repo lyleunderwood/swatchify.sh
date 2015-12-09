@@ -49,6 +49,20 @@ imagemagick. Specifically uses `convert -segment`. I haven't looked into which
 versions of imagemagick support this functionality, but I assume it's been in
 there for a while.
 
+Output
+---
+Original:
+![Large jacket png I found on
+google](https://raw.githubusercontent.com/lyleunderwood/swatchify.sh/master/example/jacket.png)
+
+```
+./swatchify.sh example/jacket.png example/jacket-swatch.gif 100 50 3000000x2.5
+```
+
+Swatch:
+![the resultant
+swatch](https://raw.githubusercontent.com/lyleunderwood/swatchify.sh/master/example/jacket-swatch.gif)
+
 How does this work?
 ---
 
