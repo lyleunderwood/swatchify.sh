@@ -63,6 +63,32 @@ Swatch:
 ![the resultant
 swatch](https://raw.githubusercontent.com/lyleunderwood/swatchify.sh/master/example/jacket-swatch.gif)
 
+The output currently is this mirrored lines thing. I just figured this would
+look pretty good in most situations. In the future I may add other output
+types, but hacking in different stuff should be pretty easy if you want
+something different. You can even use the stdout report and generate your own
+image from that.
+
+Tuning
+---
+
+As you can see I've tuned swatchify a bit to get the output I wanted above.
+Since the original plan for swatchify was to make it part of an automated
+process, I see a couple different options for achieving that type of goal:
+
+1. Go with the default tuning. By default swatchify is tuned for images that
+   are about 1000x1000 and it generates a pretty large number of bars. This can
+   actually produce great results for borderless illustrations because they're
+   so easy to cluster. So you may get a lot of bars, but your swatches will
+   certainly have enough information about the colors involved.
+2. Reduce everything to one color. Just set the minimum pixels really high and
+   go with whatever the main color is.
+3. While loop solution. Determine your range of clusters, probably like one to
+   four or so, then keep running swatchify, increasing the minimum pixels until
+   you're within your desired range of cluster count.
+
+Stuff outside of transparent PNGs is undefined behavior.
+
 How does this work?
 ---
 
