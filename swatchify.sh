@@ -1,12 +1,18 @@
 #!/bin/bash
 
-# swatchify infile outfile [width] [height] [clusteropts]
+# swatchify.sh infile outfile [width] [height] [clusteropts]
 
 # swatchify takes an image file and generates a swatch for it based on the
 # major colors. It accomplishes this using imagemagick's built in 
 # implementation of the c-means clustering algorithm. The intention is to
 # create a really simple swatch in an automated fashion as the foundation for a
 # more complex swatch system, in lieu of actual image swatches.
+#
+# swatchify currently only seems to work correctly with indexed color modes for
+# some reason. RGBA color mode seems to take way longer and also produce
+# only greyscale results. I don't know why this is and I don't have a large
+# urge to look into it. Basically `file image.png` should have "8-bit colormap"
+# in the output, then you should be fine.
 #
 # While the main output of swatchify is the swatch image obviously, it also
 # prints a simple report to stdout. This consists of the number of color
